@@ -49,6 +49,11 @@ git clone git@github.com:jimmy-martin/budget-buddy-back.git
 
 4. Install all yarn dependencies :
 
+- First install yarn globally using npm
+```
+npm install --global yarn
+```
+- Then use yarn to install the dependencies
 ```
 yarn
 ```

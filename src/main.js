@@ -5,13 +5,15 @@ import App from './App.vue'
 //Import all views for the router
 import Home from './views/Home.vue'
 import Profile from './views/Profile.vue'
+import AddEmploye from './views/AddEmploye.vue'
 
 //Define routes for Vue Router
 const router = createRouter({
   history: createWebHistory(),
   routes: [
     {path: '/', name: "Home", component: Home},
-    {path: '/profile', name: "Profile", component: Profile}
+    {path: '/profile', name: "Profile", component: Profile},
+    {path: '/add_employe', name: "Ajouter Employe", component: AddEmploye}
   ]
 })
 

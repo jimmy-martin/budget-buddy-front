@@ -3,6 +3,9 @@
         <router-link class="clickable" to="/" style="display:flex;">
             <img class="navbar-logo" src="../assets/logo.png">
         </router-link>
+        <router-link class="clickable" to="/add_employe">
+            <img class="navbar-icon" src="../assets/add.png">Ajouter employe
+            </router-link>
         <div class="navbar-account-controls">
             <router-link class="clickable" to="/profile">
             <img class="navbar-icon" src="../assets/profile.png">
