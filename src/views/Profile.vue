@@ -1,5 +1,72 @@
 <template>
     <div class="profile">
-        <h1>Profile</h1>
+        <h2 class="profile-title">Informations du compte</h2>
+        <div class="profile-body">
+            <img class="profile-picture" src="../assets/profile.png">
+            <div class="profile-info-container">
+                <span>Nom complet : {{ user.name }}</span>
+                <span>Email : {{ user.email }}</span>
+                <span>Telephone : {{ user.phone }}</span>
+                <span>IBAN : {{ user.iban }}</span>
+            </div>
+        </div>
+        <button class="btn">Modifier le mot de passe</button>
     </div>
 </template>
+
+<script setup lang="js">
+import { onMounted } from 'vue';
+
+var user = {
+    name : "John Doe",
+    email : "john.doe@gmail.com",
+    phone : "0123456789",
+    iban : "IBAN"
+}
+
+onMounted(() => {
+    
+})
+
+console.log("User = ", user)
+console.log("user.name = ", user.name)
+</script>
+
+<style scoped>
+
+    .profile {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        flex-grow: 3;
+        align-items: center;
+        padding: 42px 0 128px 0;
+    }
+
+    .profile-info-container {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .profile-title {
+        font-family: CrimsonText;
+        font-size: 40px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+    }
+
+    .profile-body {
+        display: flex;
+        align-items: center;
+        text-align: left;
+        gap: 40px;
+    }
+
+    .profile-picture {
+        background-color: var(--color-primary);
+        outline: 3px solid black;
+        border-radius: 10%;
+    }
+</style>
