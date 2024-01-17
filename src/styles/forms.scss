@@ -1,3 +1,5 @@
+//Styling for all form related elements (inputs, buttons, labels, forms)
+
 .input-field {
     display: flex;
     flex-direction: column;
@@ -52,16 +54,17 @@
     flex-grow: 0;
 }
 
-@media screen  and (max-width: 350px) {
-    .form-container {
-        padding: 22px;
-    }
-}
-
 .input-icon {
     width: 24px;
 }
 
 .mdp-container {
     padding-right: 6px;
+}
+
+//Add some padding to the form-container if the screen is too small
+@media screen  and (max-width: 350px) {
+    .form-container {
+        padding: 22px;
+    }
 }
