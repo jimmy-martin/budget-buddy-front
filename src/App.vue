@@ -1,20 +1,14 @@
 
 <script setup>
-//import component from './components/component.vue'
+import NavBar from './components/NavBar.vue'
 </script>
 
 <template>
-  <div class="navbar">
-    <router-link to="/">Go to Home</router-link>
-    <router-link to="/profile">Go to Profile</router-link>
-  </div>
+  <NavBar></NavBar>
  
   <router-view></router-view>
 </template>
 
 <style scoped>
-  .navbar {
-    display: flex;
-    gap: 12px;
-  }
+
 </style>

@@ -1,0 +1,13 @@
+:root {
+    --color-primary: #FCDCC9;
+    --color-primary-darker: #f0d0bc;
+    --color-gradient-start: #E76243;
+    --color-gradient-end: #A910A9;
+}
+
+.gradient-text {
+    background-image: linear-gradient(90deg, var(--color-gradient-start), var(--color-gradient-end));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}

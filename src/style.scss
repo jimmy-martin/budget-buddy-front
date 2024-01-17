@@ -1,13 +1,26 @@
 @import 'styles/export.scss';
 
 :root {
-  color-scheme: light dark;
-  color: #000;
-  background-color: #FFF;
+  font-family: CrimsonText;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+input, button {
+  background-color: rgba(#000000, 0);
+  outline: 0;
+  border: 0;
+  font-family: CrimsonText;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+a {
+  text-decoration: none;
 }
 
 body {
@@ -17,27 +30,16 @@ body {
   min-height: 100vh;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+h1, h2, h3, h4 {
+  padding: 0;
+  margin: 0;
 }
 
 #app {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
   text-align: center;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 }
