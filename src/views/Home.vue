@@ -3,7 +3,7 @@
         <img class="home-image" src="../assets/home.png">
         <div class="login-container">
             <h1 class="login-title gradient-text">Budget Buddy</h1>
-            <form class="form-container" action="">
+            <form class="form-container" action="" @submit.prevent="">
                 <div class="input-field">
                     <label>E-mail</label>
                     <div class="form-control">
@@ -17,7 +17,10 @@
                         <img class="input-icon" src="../assets/eyecross.png" @click="showMdp">
                     </div>
                 </div>
-                <input class="submit-btn" type="submit" value="Connexion">
+                
+                <router-link class="clickable" to="/notes">
+                    <input class="submit-btn" type="submit" value="Connexion">
+                </router-link>
             </form>
         </div>
     </div>

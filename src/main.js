@@ -6,6 +6,8 @@ import App from './App.vue'
 import Home from './views/Home.vue'
 import Profile from './views/Profile.vue'
 import AddEmploye from './views/AddEmploye.vue'
+import Notes from './views/Notes.vue'
+import Admin from './views/Admin.vue'
 
 //Define routes for Vue Router
 const router = createRouter({
@@ -13,7 +15,9 @@ const router = createRouter({
   routes: [
     {path: '/', name: "Home", component: Home},
     {path: '/profile', name: "Profile", component: Profile},
-    {path: '/add_employe', name: "Ajouter Employe", component: AddEmploye}
+    {path: '/add_employe', name: "Ajouter Employe", component: AddEmploye},
+    {path: '/notes', name: "Notes", component: Notes},
+    {path: '/admin', name: "Admin", component: Admin}
   ]
 })
 

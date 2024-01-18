@@ -28,12 +28,9 @@ onMounted(() => {
     
 })
 
-console.log("User = ", user)
-console.log("user.name = ", user.name)
 </script>
 
 <style scoped>
-
     .profile {
         display: flex;
         flex-direction: column;
