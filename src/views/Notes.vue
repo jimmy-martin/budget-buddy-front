@@ -21,23 +21,22 @@
             </div>
         </div>
         <div class="create-note-container">
-            <h2>Creer une note nouvelle note de frais</h2>
-            <form class="form-container" action="" @submit.prevent="">
-                
+            <h2>Créer une nouvelle note de frais</h2>
+            <form class="form-container" action="" @submit.prevent="createNote">
                 <div class="input-field">
                     <label>Raison</label>
                     <div class="form-control">
-                        <textarea class=""></textarea>
+                        <textarea v-model="newNote.reason" class=""></textarea>
                     </div>
                 </div>
                 <div class="input-field">
-                    <label>Cout</label>
+                    <label>Coût</label>
                     <div class="form-control">
-                        <input type="text">
+                        <input type="number" step="0.01" v-model.number="newNote.cost">
                     </div>
                 </div>
-                <input class="submit-btn" type="submit" value="Creer">    
-            </form>       
+                <input class="submit-btn" type="submit" value="Créer">
+            </form>
         </div>
     </div>
 </template>
@@ -49,7 +48,11 @@ export default {
   data() {
     return {
       userId: 4,
-      notes: []
+      notes: [],
+      newNote: {
+        reason: "",
+        cost: 0
+      }
     }
   },
   methods: {
@@ -59,6 +62,22 @@ export default {
         this.notes = response.data;
       } catch (error) {
         console.log(error);
+      }
+    },
+    async createNote() {
+      try {
+        this.newNote.owner = `/api/users/${this.userId}`
+        const response = await budgetAxios.post('/expense_reports', this.newNote);
+        this.notes.push(response.data);
+        this.resetForm();
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    resetForm() {
+      this.newNote = {
+        reason: "",
+        cost: 0
       }
     }
   },
@@ -96,7 +115,7 @@ export default {
     .all-notes-container::-webkit-scrollbar-thumb {
         background-clip: padding-box;
         background-color: var(--color-gray);
-        border: 4px solid rgba(0, 0, 0, 0); 
+        border: 4px solid rgba(0, 0, 0, 0);
     }
 
     .note-container {
@@ -110,7 +129,6 @@ export default {
         }
 
     .note-title {
-        text-align: center;
         text-align: center;
         font-family: CrimsonText;
         font-size: 30px;
