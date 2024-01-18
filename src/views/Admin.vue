@@ -64,15 +64,15 @@
                         <th>Identifiant</th>
                         <th>Nom complet</th>
                         <th>Email</th>
-                        <th>Telephone</th>
+                        <th>Téléphone</th>
                         <th>Actions</th>
                     </thead>
                     <tbody>
-                        <tr v-for="note in notes" class="table-row">
-                            <td>{{ note.id }}</td>
-                            <td>{{ note.name }}</td>
-                            <td>{{ note.email }}</td>
-                            <td>{{ note.phone }}</td>
+                        <tr v-for="employee in employees" class="table-row">
+                            <td>{{ employee.id }}</td>
+                            <td>{{ employee.fullname }}</td>
+                            <td>{{ employee.mail }}</td>
+                            <td>{{ employee.phone }}</td>
                             <td>
                               <img class="table-icon clickable" src="../assets/edit.png">
                               <img class="table-icon clickable" src="../assets/trash.png">
@@ -100,6 +100,7 @@ export default {
   data() {
     return {
       notes : [],
+      employees : [],
       activeTable : 'notes'
     }
   },
@@ -130,6 +131,20 @@ export default {
     },
     setActiveTable(table) {
       this.activeTable = table;
+
+      if (table === 'notes') {
+        this.getNotes();
+      } else {
+        this.getEmployees();
+      }
+    },
+    async getEmployees() {
+      try {
+        const response = await budgetAxios.get('/users?order[fullname]=asc&role=2&isDeleted=0');
+        this.employees = response.data;
+      } catch (error) {
+        console.log(error);
+      }
     },
   },
   beforeMount() {
