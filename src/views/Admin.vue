@@ -27,8 +27,14 @@
                             <td>{{ note.cost }}</td>
                             <td>{{ note.status }}</td>
                             <td>
-                              <img class="table-icon clickable" src="../assets/money.png" @click="payNote(note.id)"/>
-                              <img class="table-icon clickable" src="../assets/cancel.png">
+                              <img
+                                  class="table-icon clickable"
+                                  src="../assets/money.png"
+                                  @click="payNote(note.id)"/>
+                              <img
+                                  class="table-icon clickable"
+                                  src="../assets/cancel.png"
+                                  @click="refuseNote(note.id)"/>
                             </td>
                         </tr>
                     </tbody>
@@ -103,6 +109,14 @@ export default {
         console.log(error);
       }
     },
+    async refuseNote(noteId) {
+      try {
+        await budgetAxios.get(`/expense_reports/${noteId}/refuse`);
+        await this.getNotes();
+      } catch (error) {
+        console.log(error);
+      }
+    }
   },
   beforeMount() {
     this.getNotes();
