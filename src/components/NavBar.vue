@@ -3,7 +3,7 @@
         <router-link class="clickable" to="/" style="display:flex;">
           <img class="navbar-logo" src="../assets/logo.png">
         </router-link>
-        <router-link class="clickable add-employe" to="/add_employe">
+        <router-link v-if="admin" class="clickable add-employe" to="/add_employe">
           Ajouter employe <img class="navbar-icon" src="../assets/add.png">
         </router-link>
         <div class="navbar-account-controls">
@@ -18,7 +18,12 @@
 </template>
 
 <script setup lang="js">
+var location = window.location.href;
+let admin = false
 
+if(location.indexOf("/admin") > -1) {
+  admin = true    
+}
 </script>
 
 <style scoped>
