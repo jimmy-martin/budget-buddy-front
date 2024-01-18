@@ -1,28 +1,28 @@
 <template>
     <div class="navbar">
         <router-link class="clickable" to="/" style="display:flex;">
-            <img class="navbar-logo" src="../assets/logo.png">
+          <img class="navbar-logo" src="../assets/logo.png">
         </router-link>
-        <router-link class="clickable" to="/add_employe">
-            <img class="navbar-icon" src="../assets/add.png">Ajouter employe
-            </router-link>
+        <router-link class="clickable add-employe" to="/add_employe">
+          Ajouter employe <img class="navbar-icon" src="../assets/add.png">
+        </router-link>
         <div class="navbar-account-controls">
-            <router-link class="clickable" to="/profile">
+          <router-link class="clickable" to="/profile">
             <img class="navbar-icon" src="../assets/profile.png">
-            </router-link>
-            <a class="clickable" tabindex="0">
+          </router-link>
+          <a class="clickable" tabindex="0">
             <img class="navbar-icon" src="../assets/logout.png">
-            </a>
+          </a>
         </div>
     </div>
 </template>
 
-<script>
+<script setup lang="js">
 
 </script>
 
 <style scoped>
-.navbar {
+  .navbar {
     display: flex;
     padding: 12px 24px;
     height: 64px;
@@ -44,6 +44,18 @@
   .navbar-icon {
     width: 42px;
     height: 42px;
+  }
+
+  .add-employe {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #000;
+    font-family: CrimsonText;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
   }
 
   @media screen  and (max-width: 600px) {
