@@ -2,19 +2,22 @@
     <div class="notes">
         <div class="all-notes-container">
             <h3 class="note-title">Vos notes de frais</h3>
-            <div class="note-container" v-for="note in notes">
+            <div class="note-container" v-if="notes.length" v-for="note in notes">
                 <div class="note-body">
-                    <img class="note-trash clickable" src="../assets/trash.png">
+                    <img class="note-trash clickable" src="../assets/trash.png"/>
                     <div class="note-info">
                         <div class="note-header">
                             <span>{{ note.id }}</span>
                             <span>{{ note.status }}</span>
                         </div>
-                        <span>{{ note.raison }}</span>
-                        <span class="note-cout">{{ note.cout }} €</span>
+                        <span>{{ note.reason }}</span>
+                        <span class="note-cout">{{ note.cost }} €</span>
                     </div>
                 </div>
                 <div class="separator"></div>
+            </div>
+            <div class="no-expense-container" v-else>
+                <p>Aucune note de frais</p>
             </div>
         </div>
         <div class="create-note-container">
@@ -39,47 +42,30 @@
     </div>
 </template>
 
-<script setup lang="js">
-import { onMounted } from 'vue';
+<script>
+import budgetAxios from "../axios/budgetAxios.ts";
 
-var note = {
-    id : "1",
-    status : "Acceptee",
-    raison : "Achat d'un chargeur casse",
-    cout : "20"
+export default {
+  data() {
+    return {
+      userId: 4,
+      notes: []
+    }
+  },
+  methods: {
+    async getNotes() {
+      try {
+        const response = await budgetAxios.get(`/users/${this.userId}/expense_reports`);
+        this.notes = response.data;
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  },
+  beforeMount() {
+    this.getNotes();
+  }
 }
-
-var notes = [
-    {
-        id : "1",
-        status : "Acceptee",
-        raison : "Achat d'un chargeur casse",
-        cout : "40"
-    },
-    {
-        id : "2",
-        status : "Refusee",
-        raison : "Stylo casse",
-        cout : "6"
-    },
-    {
-        id : "3",
-        status : "En attente",
-        raison : "Abonnement mobile Telephone professionel",
-        cout : "80"
-    }/* ,
-    {
-        id : "4",
-        status : "En attente",
-        raison : "Chaise de bureau",
-        cout : "120"
-    } */
-]
-
-onMounted(() => {
-    
-})
-
 </script>
 
 <style scoped>
@@ -172,5 +158,8 @@ onMounted(() => {
         gap: 25px;
     }
 
+    .no-expense-container {
+        text-align: center;
+    }
 
 </style>
