@@ -4,7 +4,7 @@
             <h3 class="note-title">Vos notes de frais</h3>
             <div class="note-container" v-if="notes.length" v-for="note in notes">
                 <div class="note-body">
-                    <img class="note-trash clickable" src="../assets/trash.png"/>
+                    <img class="note-trash clickable" src="../assets/trash.png" @click="deleteNote(note.id)"/>
                     <div class="note-info">
                         <div class="note-header">
                             <span>{{ note.id }}</span>
@@ -70,6 +70,14 @@ export default {
         const response = await budgetAxios.post('/expense_reports', this.newNote);
         this.notes.push(response.data);
         this.resetForm();
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async deleteNote(noteId) {
+      try {
+        await budgetAxios.delete(`/expense_reports/${noteId}`);
+        this.notes = this.notes.filter(note => note.id !== noteId);
       } catch (error) {
         console.log(error);
       }
