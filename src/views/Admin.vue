@@ -2,14 +2,22 @@
     <div class="admin">
         <div class="table-container">
             <div class="table-header">
-                <div id="buttonNotes" class="table-header-button active">
+                <div id="buttonNotes"
+                     class="table-header-button"
+                     :class="{ 'active': activeTable === 'notes' }"
+                     @click="setActiveTable('notes')">
                     Note de frais
                 </div>
-                <div id="buttonEmployes" class="table-header-button">
+                <div id="buttonEmployes"
+                     class="table-header-button"
+                     :class="{ 'active': activeTable === 'employes' }"
+                     @click="setActiveTable('employes')">
                     Employés
                 </div>
             </div>
-            <div id="tableNotes" class="flex-for-table active">
+            <div id="tableNotes"
+                 class="flex-for-table"
+                 :class="{ 'active': activeTable === 'notes' }">
                 <table class="table-content">
                     <thead class="table-first-row">
                         <th>Identifiant</th>
@@ -48,7 +56,9 @@
                     <div></div>
                 </div>
             </div>
-            <div id="tableEmployes" class="flex-for-table">
+            <div id="tableEmployes"
+                 class="flex-for-table"
+                 :class="{ 'active': activeTable === 'employes' }">
                 <table class="table-content">
                     <thead class="table-first-row">
                         <th>Identifiant</th>
@@ -90,6 +100,7 @@ export default {
   data() {
     return {
       notes : [],
+      activeTable : 'notes'
     }
   },
   methods: {
@@ -116,7 +127,10 @@ export default {
       } catch (error) {
         console.log(error);
       }
-    }
+    },
+    setActiveTable(table) {
+      this.activeTable = table;
+    },
   },
   beforeMount() {
     this.getNotes();
