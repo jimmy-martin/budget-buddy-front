@@ -74,7 +74,9 @@
                             <td>{{ employee.mail }}</td>
                             <td>{{ employee.phone }}</td>
                             <td>
-                              <img class="table-icon clickable" src="../assets/edit.png">
+                              <img class="table-icon clickable"
+                                   src="../assets/edit.png"
+                                   @click="editEmployee(employee.id)"/>
                               <img class="table-icon clickable"
                                    src="../assets/trash.png"
                                    @click="deleteEmployee(employee.id)"/>
@@ -155,6 +157,9 @@ export default {
       } catch (error) {
         console.log(error);
       }
+    },
+    editEmployee(employeeId) {
+      this.$router.push({path: `/update_employe/${employeeId}`});
     }
   },
   beforeMount() {
