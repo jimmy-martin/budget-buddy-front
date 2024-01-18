@@ -1,7 +1,7 @@
 <template>
     <div class="addEmploye">
         <h1 class="login-title gradient-text">Ajouter un employé</h1>
-        <form class="form-container-add" action="">
+        <form class="form-container-add" action="" @submit.prevent>
             <div class="input-field">
                 <label>Nom*</label>
                 <div class="widthe form-control">
@@ -42,7 +42,7 @@
             <br />
             <div class="flex">
                 <input class="submit-btn widthe_sur_2" type="submit" value="Ajouter">
-                <button class="submit-btn widthe_sur_2" type="button" @Click="connect"> Annuler</button>
+                <button class="submit-btn widthe_sur_2" @click="goBack"> Annuler</button>
             </div>
         </form>
         <br /><br />
@@ -55,9 +55,9 @@
         let mdpInputElement = target.parentElement.querySelector('.mdp-input')
         mdpInputElement.type = mdpInputElement.type === 'password' ? 'text' : 'password' 
     }
-    function connect(event) {
-        let target = event.currentTarget
-        location.href="/"
+
+    function goBack(event) {
+        location.href="/admin"
     }
 </script>
 
