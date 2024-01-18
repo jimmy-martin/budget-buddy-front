@@ -109,7 +109,7 @@ export default {
   methods: {
     async getNotes() {
       try {
-        const response = await budgetAxios.get('/expense_reports');
+        const response = await budgetAxios.get('/expense_reports?owner.role=2&owner.isDeleted=0');
         this.notes = response.data;
       } catch (error) {
         console.log(error);
