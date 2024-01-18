@@ -75,7 +75,9 @@
                             <td>{{ employee.phone }}</td>
                             <td>
                               <img class="table-icon clickable" src="../assets/edit.png">
-                              <img class="table-icon clickable" src="../assets/trash.png">
+                              <img class="table-icon clickable"
+                                   src="../assets/trash.png"
+                                   @click="deleteEmployee(employee.id)"/>
                             </td>
                         </tr>
                     </tbody>
@@ -146,6 +148,14 @@ export default {
         console.log(error);
       }
     },
+    async deleteEmployee(employeeId) {
+      try {
+        await budgetAxios.delete(`/users/${employeeId}`);
+        await this.getEmployees();
+      } catch (error) {
+        console.log(error);
+      }
+    }
   },
   beforeMount() {
     this.getNotes();
