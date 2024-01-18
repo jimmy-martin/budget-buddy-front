@@ -2,14 +2,14 @@
     <div class="admin">
         <div class="table-container">
             <div class="table-header">
-                <div class="table-header-button">
+                <div id="buttonNotes" class="table-header-button active" @click="switchToNotes">
                     Note de frais
                 </div>
-                <div class="table-header-button">
+                <div id="buttonEmployes" class="table-header-button" @click="switchToEmployes">
                     Employe
                 </div>
             </div>
-            <div class="flex-for-table">
+            <div id="tableNotes" class="flex-for-table active">
                 <table class="table-content">
                     <thead class="table-first-row">
                         <th>Identifiant</th>
@@ -26,7 +26,35 @@
                             <td>{{ note.raison }}</td>
                             <td>{{ note.cout }}</td>
                             <td>{{ note.statut }}</td>
-                            <td><img src="../assets/money.png"><img src="../assets/cancel.png"></td>
+                            <td><img class="table-icon" src="../assets/money.png"><img class="table-icon" src="../assets/cancel.png"></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="extend-table-footer">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+            <div id="tableEmployes" class="flex-for-table">
+                <table class="table-content">
+                    <thead class="table-first-row">
+                        <th>Identifiant</th>
+                        <th>Nom complet</th>
+                        <th>Email</th>
+                        <th>Telephone</th>
+                        <th>Actions</th>
+                    </thead>
+                    <tbody>
+                        <tr v-for="note in notes" class="table-row">
+                            <td>{{ note.id }}</td>
+                            <td>{{ note.name }}</td>
+                            <td>{{ note.email }}</td>
+                            <td>{{ note.phone }}</td>
+                            <td><img class="table-icon" src="../assets/edit.png"><img class="table-icon" src="../assets/trash.png"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -84,6 +112,24 @@ var notes = [
     }
 ]
 
+function switchToEmployes(event) {
+    let target = event.currentTarget
+    let mainDiv = target.parentElement.parentElement
+    /* mainDiv.querySelector('buttonEmploye').classList.add('active')
+    mainDiv.querySelector('buttonNotes').classList.remove('active')
+    mainDiv.querySelector('tableEmployes').classList.add('active')
+    mainDiv.querySelector('tableNotes').classList.remove('active') */
+}
+
+function switchToNotes(event) {
+    let target = event.currentTarget
+    let mainDiv = target.parentElement.parentElement
+    /* mainDiv.querySelector('buttonEmploye').classList.remove('active')
+    mainDiv.querySelector('buttonNotes').classList.add('active')
+    mainDiv.querySelector('tableEmployes').classList.remove('active')
+    mainDiv.querySelector('tableNotes').classList.add('active') */
+}
+
 onMounted(() => {
     
 })
@@ -115,6 +161,11 @@ onMounted(() => {
         cursor: pointer;
         text-align: left;
         padding: 6px 12px;
+        background-color: var(--color-primary);
+    }
+
+    .table-header-button.active {
+        background-color: var(--color-active);
     }
     
     table, td, th {
@@ -123,8 +174,16 @@ onMounted(() => {
     }
 
     .flex-for-table {
-        display: flex;
+        display: none;
         flex-direction: column;
         height: 100%;
+    }
+
+    .flex-for-table.active {
+        display: flex;
+    }
+
+    .table-icon {
+        width: 40px
     }
 </style>
