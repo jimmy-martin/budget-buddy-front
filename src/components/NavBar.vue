@@ -6,6 +6,12 @@
         <router-link class="clickable" to="/add_employe">
             <img class="navbar-icon" src="../assets/add.png">Ajouter employe
             </router-link>
+            <div class="form-control mdp-container search">
+              <input type="text" placeholder="Recherche">
+              <router-link class="clickable" to="/add_employe">
+                <img class="input-icon" src="../assets/search.png">
+              </router-link>
+            </div>
         <div class="navbar-account-controls">
             <router-link class="clickable" to="/profile">
             <img class="navbar-icon" src="../assets/profile.png">
@@ -60,5 +66,9 @@
     .navbar {
         height: 32px;
     }
+  }
+
+  .search{
+    background-color: white;
   }
 </style>
