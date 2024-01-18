@@ -54,6 +54,13 @@
     flex-grow: 0;
 }
 
+.form-container-add {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    flex-grow: 0;
+}
+
 .input-icon {
     width: 24px;
 }
