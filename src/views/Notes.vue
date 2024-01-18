@@ -2,84 +2,97 @@
     <div class="notes">
         <div class="all-notes-container">
             <h3 class="note-title">Vos notes de frais</h3>
-            <div class="note-container" v-for="note in notes">
+            <div class="note-container" v-if="notes.length" v-for="note in notes">
                 <div class="note-body">
-                    <img class="note-trash clickable" src="../assets/trash.png">
+                    <img class="note-trash clickable" src="../assets/trash.png" @click="deleteNote(note.id)"/>
                     <div class="note-info">
                         <div class="note-header">
                             <span>{{ note.id }}</span>
                             <span>{{ note.status }}</span>
                         </div>
-                        <span>{{ note.raison }}</span>
-                        <span class="note-cout">{{ note.cout }} €</span>
+                        <span>{{ note.reason }}</span>
+                        <span class="note-cout">{{ note.cost }} €</span>
                     </div>
                 </div>
                 <div class="separator"></div>
             </div>
+            <div class="no-expense-container" v-else>
+                <p>Aucune note de frais</p>
+            </div>
         </div>
         <div class="create-note-container">
-            <h2>Creer une note nouvelle note de frais</h2>
-            <form class="form-container" action="" @submit.prevent="">
-                
+            <h2>Créer une nouvelle note de frais</h2>
+            <form class="form-container" action="" @submit.prevent="createNote">
                 <div class="input-field">
                     <label>Raison</label>
                     <div class="form-control">
-                        <textarea class=""></textarea>
+                        <textarea v-model="newNote.reason" class=""></textarea>
                     </div>
                 </div>
                 <div class="input-field">
-                    <label>Cout</label>
+                    <label>Coût</label>
                     <div class="form-control">
-                        <input type="text">
+                        <input type="number" step="0.01" v-model.number="newNote.cost">
                     </div>
                 </div>
-                <input class="submit-btn" type="submit" value="Creer">    
-            </form>       
+                <input class="submit-btn" type="submit" value="Créer">
+            </form>
         </div>
     </div>
 </template>
 
-<script setup lang="js">
-import { onMounted } from 'vue';
+<script>
+import budgetAxios from "../axios/budgetAxios.ts";
 
-var note = {
-    id : "1",
-    status : "Acceptee",
-    raison : "Achat d'un chargeur casse",
-    cout : "20"
+export default {
+  data() {
+    return {
+      userId: 4,
+      notes: [],
+      newNote: {
+        reason: "",
+        cost: 0
+      }
+    }
+  },
+  methods: {
+    async getNotes() {
+      try {
+        const response = await budgetAxios.get(`/users/${this.userId}/expense_reports`);
+        this.notes = response.data;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async createNote() {
+      try {
+        this.newNote.owner = `/api/users/${this.userId}`
+        const response = await budgetAxios.post('/expense_reports', this.newNote);
+        this.notes.push(response.data);
+        this.resetForm();
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async deleteNote(noteId) {
+      try {
+        await budgetAxios.delete(`/expense_reports/${noteId}`);
+        this.notes = this.notes.filter(note => note.id !== noteId);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    resetForm() {
+      this.newNote = {
+        reason: "",
+        cost: 0
+      }
+    }
+  },
+  beforeMount() {
+    this.getNotes();
+  }
 }
-
-var notes = [
-    {
-        id : "1",
-        status : "Acceptee",
-        raison : "Achat d'un chargeur casse",
-        cout : "40"
-    },
-    {
-        id : "2",
-        status : "Refusee",
-        raison : "Stylo casse",
-        cout : "6"
-    },
-    {
-        id : "3",
-        status : "En attente",
-        raison : "Abonnement mobile Telephone professionel",
-        cout : "80"
-    }/* ,
-    {
-        id : "4",
-        status : "En attente",
-        raison : "Chaise de bureau",
-        cout : "120"
-    } */
-]
-
-onMounted(() => {
-    
-})
-
 </script>
 
 <style scoped>
@@ -110,7 +123,7 @@ onMounted(() => {
     .all-notes-container::-webkit-scrollbar-thumb {
         background-clip: padding-box;
         background-color: var(--color-gray);
-        border: 4px solid rgba(0, 0, 0, 0); 
+        border: 4px solid rgba(0, 0, 0, 0);
     }
 
     .note-container {
@@ -124,7 +137,6 @@ onMounted(() => {
         }
 
     .note-title {
-        text-align: center;
         text-align: center;
         font-family: CrimsonText;
         font-size: 30px;
@@ -172,5 +184,8 @@ onMounted(() => {
         gap: 25px;
     }
 
+    .no-expense-container {
+        text-align: center;
+    }
 
 </style>
