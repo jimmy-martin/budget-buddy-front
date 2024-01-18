@@ -1,6 +1,6 @@
 import axios, { AxiosInstance } from 'axios'
 
-const baseUrl = 'localhost:8000/api'
+const baseUrl = 'http://localhost:8000/api'
 
 const budgetAxios = axios.create({
     baseURL: baseUrl,
