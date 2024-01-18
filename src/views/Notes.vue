@@ -144,6 +144,7 @@ onMounted(() => {
         display: flex;
         flex-direction: column;
         flex-grow: 3;
+        gap: 4px
     }
 
     .note-header {

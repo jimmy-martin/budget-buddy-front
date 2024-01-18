@@ -29,6 +29,10 @@
         resize: none;
     }
 
+    textarea {
+        min-height: 120px;
+    }
+
     &:focus-within {
         outline: 2px solid var(--color-gradient-end);
     }
