@@ -64,18 +64,22 @@
                         <th>Identifiant</th>
                         <th>Nom complet</th>
                         <th>Email</th>
-                        <th>Telephone</th>
+                        <th>Téléphone</th>
                         <th>Actions</th>
                     </thead>
                     <tbody>
-                        <tr v-for="note in notes" class="table-row">
-                            <td>{{ note.id }}</td>
-                            <td>{{ note.name }}</td>
-                            <td>{{ note.email }}</td>
-                            <td>{{ note.phone }}</td>
+                        <tr v-for="employee in employees" class="table-row">
+                            <td>{{ employee.id }}</td>
+                            <td>{{ employee.fullname }}</td>
+                            <td>{{ employee.mail }}</td>
+                            <td>{{ employee.phone }}</td>
                             <td>
-                              <img class="table-icon clickable" src="../assets/edit.png">
-                              <img class="table-icon clickable" src="../assets/trash.png">
+                              <img class="table-icon clickable"
+                                   src="../assets/edit.png"
+                                   @click="editEmployee(employee.id)"/>
+                              <img class="table-icon clickable"
+                                   src="../assets/trash.png"
+                                   @click="deleteEmployee(employee.id)"/>
                             </td>
                         </tr>
                     </tbody>
@@ -100,13 +104,14 @@ export default {
   data() {
     return {
       notes : [],
+      employees : [],
       activeTable : 'notes'
     }
   },
   methods: {
     async getNotes() {
       try {
-        const response = await budgetAxios.get('/expense_reports');
+        const response = await budgetAxios.get('/expense_reports?owner.role=2&owner.isDeleted=0');
         this.notes = response.data;
       } catch (error) {
         console.log(error);
@@ -130,7 +135,33 @@ export default {
     },
     setActiveTable(table) {
       this.activeTable = table;
+      window.location.hash = `#${table}`;
+
+      if (table === 'notes') {
+        this.getNotes();
+      } else {
+        this.getEmployees();
+      }
     },
+    async getEmployees() {
+      try {
+        const response = await budgetAxios.get('/users?order[fullname]=asc&role=2&isDeleted=0');
+        this.employees = response.data;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async deleteEmployee(employeeId) {
+      try {
+        await budgetAxios.delete(`/users/${employeeId}`);
+        await this.getEmployees();
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    editEmployee(employeeId) {
+      this.$router.push({path: `/update_employe/${employeeId}`});
+    }
   },
   beforeMount() {
     this.getNotes();
