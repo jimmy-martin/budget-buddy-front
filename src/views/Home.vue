@@ -101,6 +101,11 @@ export default {
         window.localStorage.setItem('admin', false);
 
         window.location.replace("/notes");
+    },
+    showMdp(event) {
+        let target = event.currentTarget
+        let mdpInputElement = target.parentElement.querySelector('.mdp-input')
+        mdpInputElement.type = mdpInputElement.type === 'password' ? 'text' : 'password' 
     }
   },
   beforeMount() {
@@ -120,13 +125,6 @@ export default {
     }
   }
 }
-
-function showMdp(event) {
-    let target = event.currentTarget
-    let mdpInputElement = target.parentElement.querySelector('.mdp-input')
-    mdpInputElement.type = mdpInputElement.type === 'password' ? 'text' : 'password' 
-}
-
 </script>
 
 <style scoped>
