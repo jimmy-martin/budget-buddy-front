@@ -47,7 +47,7 @@ import budgetAxios from "../axios/budgetAxios.ts";
 export default {
   data() {
     return {
-      userId: 4,
+      userId: window.localStorage.getItem("id"),
       notes: [],
       newNote: {
         reason: "",
