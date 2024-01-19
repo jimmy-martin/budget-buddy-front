@@ -4,29 +4,41 @@
         <div class="profile-body">
             <img class="profile-picture" src="../assets/profile.png">
             <div class="profile-info-container">
-                <span>Nom complet : {{ user.name }}</span>
-                <span>Email : {{ user.email }}</span>
-                <span>Telephone : {{ user.phone }}</span>
-                <span>IBAN : {{ user.iban }}</span>
+                <span>Nom complet : {{ user.fullname }}</span>
+                <span>Email : {{ user.mail }}</span>
+                <span v-if="user.phone">Telephone : {{ user.phone }}</span>
+                <span v-if="user.iban">IBAN : {{ user.iban }}</span>
             </div>
         </div>
-        <button class="btn">Modifier le mot de passe</button>
+        <button class="btn" disabled>Modifier le mot de passe</button>
     </div>
 </template>
 
-<script setup lang="js">
-import { onMounted } from 'vue';
+<script lang="js">
+import budgetAxios from "../axios/budgetAxios.ts";
 
-var user = {
-    name : "John Doe",
-    email : "john.doe@gmail.com",
-    phone : "0123456789",
-    iban : "IBAN"
+export default {
+  data() {
+    return {
+        id: window.localStorage.getItem('id'),
+        user: {}
+    }
+  },
+  methods: {
+    async getProfile() {
+      try {
+        const response = await budgetAxios.get(`/users/${this.id}`);
+        this.user = response.data;
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  },
+  beforeMount() {
+    this.id = window.localStorage.getItem('id')
+    this.getProfile()
+  }
 }
-
-onMounted(() => {
-    
-})
 
 </script>
 
