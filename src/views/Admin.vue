@@ -135,6 +135,7 @@ export default {
     },
     setActiveTable(table) {
       this.activeTable = table;
+      window.location.hash = `#${table}`;
 
       if (table === 'notes') {
         this.getNotes();
