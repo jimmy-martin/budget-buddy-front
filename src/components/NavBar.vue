@@ -4,7 +4,7 @@
           <img class="navbar-logo" src="../assets/logo.png">
         </router-link>
         <router-link v-if="admin === 'true'" class="clickable add-employe" to="/add_employe">
-          Ajouter employe <img class="navbar-icon" src="../assets/add.png">
+          Ajouter employé <img class="navbar-icon" src="../assets/add.png">
         </router-link>
         <div v-if="login === 'true'" class="navbar-account-controls">
           <router-link class="clickable" to="/profile">
