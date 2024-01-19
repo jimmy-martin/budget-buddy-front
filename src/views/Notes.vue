@@ -4,7 +4,7 @@
             <h3 class="note-title">Vos notes de frais</h3>
             <div class="note-container" v-if="notes.length" v-for="note in notes">
                 <div class="note-body">
-                    <img class="note-trash clickable" src="../assets/trash.png" @click="deleteNote(note.id)"/>
+                    <img v-if="note.status === 'en cours'" class="note-trash clickable" src="../assets/trash.png" @click="deleteNote(note.id)"/>
                     <div class="note-info">
                         <div class="note-header">
                             <span>{{ note.id }}</span>
