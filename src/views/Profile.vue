@@ -6,7 +6,7 @@
             <div class="profile-info-container">
                 <span>Nom complet : {{ user.fullname }}</span>
                 <span>Email : {{ user.mail }}</span>
-                <span v-if="user.phone">Telephone : {{ user.phone }}</span>
+                <span v-if="user.phone">Téléphone : {{ user.phone }}</span>
                 <span v-if="user.iban">IBAN : {{ user.iban }}</span>
             </div>
         </div>
