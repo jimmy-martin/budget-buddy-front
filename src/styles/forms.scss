@@ -51,6 +51,12 @@
     &:focus {
         outline: 2px solid var(--color-gradient-end);
     }
+
+    &:disabled {
+        background-color: var(--color-primary-darker);
+        outline: 1px solid darkgray;
+        cursor: not-allowed;
+    }
 }
 
 .form-container {

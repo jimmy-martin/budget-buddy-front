@@ -1,29 +1,58 @@
 <template>
     <div class="navbar">
-        <router-link class="clickable" to="/" style="display:flex;">
+        <router-link class="clickable" :to="homePath" style="display:flex;">
           <img class="navbar-logo" src="../assets/logo.png">
         </router-link>
-        <router-link v-if="admin" class="clickable add-employe" to="/add_employe">
+        <router-link v-if="admin === 'true'" class="clickable add-employe" to="/add_employe">
           Ajouter employe <img class="navbar-icon" src="../assets/add.png">
         </router-link>
-        <div class="navbar-account-controls">
+        <div v-if="login === 'true'" class="navbar-account-controls">
           <router-link class="clickable" to="/profile">
             <img class="navbar-icon" src="../assets/profile.png">
           </router-link>
-          <a class="clickable" tabindex="0">
+          <a class="clickable" tabindex="0" @click="disconnect">
             <img class="navbar-icon" src="../assets/logout.png">
           </a>
         </div>
     </div>
 </template>
 
-<script setup lang="js">
-var location = window.location.href;
-let admin = false
+<script lang="js">
+export default {
+  data() {
+    return {
+        homePath: "",
+        id: window.localStorage.getItem('id'),
+        login: window.localStorage.getItem('login'),
+        admin: window.localStorage.getItem('admin')
+    }
+  },
+  methods: {
+    disconnect(){
+      window.localStorage.removeItem('id')
+      window.localStorage.removeItem('admin')
+      window.localStorage.removeItem('login')
+      window.location.replace('/')
+    }
+  },
+  beforeMount() {
+    let admin = window.localStorage.getItem('admin')
+    let login = window.localStorage.getItem('login')
 
-if(location.indexOf("/admin") > -1) {
-  admin = true    
+    //Redirect to pages if admin or logged in
+
+    if(admin === "true" && login === "true"){
+        this.homePath = '/admin'
+    }
+    else if(login === "true") {
+      this.homePath = '/notes'
+    }
+    else {
+      this.homePath = '/'
+    }
+  }
 }
+
 </script>
 
 <style scoped>
